@@ -2,6 +2,13 @@ const sequelize=require('../config/db');
 const { DataTypes } = require('sequelize');
 // models/Review.js
   const Review = sequelize.define("Review", {
+    userId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'Users',
+            key: 'id'
+        }
+    },
     rating: {
       type: DataTypes.INTEGER,
       allowNull: false,

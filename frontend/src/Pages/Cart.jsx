@@ -1,12 +1,13 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect} from "react";
 import { CartContext } from "../Components/CartContext";
 import Cartcard from "../Components/CartCard";
 import api from "../api/api";
 import { message, Card, Button, Divider } from "antd";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
   const { cart, setCart } = useContext(CartContext);
-
+  const navigate = useNavigate();
   // Load cart from backend when page loads
   useEffect(() => {
     api.get("/cart")
@@ -70,7 +71,7 @@ export default function Cart() {
               }}
             >
               <span>Total: ₹{total}</span>
-              <Button type="primary" size="large">
+              <Button type="primary" size="large" onClick={() => navigate("/checkout")}>
                 Checkout
               </Button>
             </div>

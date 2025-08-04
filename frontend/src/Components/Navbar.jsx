@@ -1,5 +1,5 @@
 import { Layout, Menu, Dropdown, Avatar, Typography } from "antd";
-import { UserOutlined, LogoutOutlined, HomeOutlined, ShoppingCartOutlined, ShopOutlined } from "@ant-design/icons";
+import { UserOutlined, LogoutOutlined, HomeOutlined, ShoppingCartOutlined, ShopOutlined,ShoppingOutlined,SolutionOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -85,6 +85,18 @@ export default function Navbar() {
               <Link to="/seller">Seller Dashboard</Link>
             </Menu.Item>
           )}
+          {role === "buyer" && (
+            <Menu.Item key="orders" icon={<ShoppingOutlined />}>
+              <Link to="/my-orders">My Orders</Link>
+            </Menu.Item>
+          )}
+          
+          {(role === "seller" || role === "admin") && (
+            <Menu.Item key="manage-orders" icon={<SolutionOutlined />}>
+              <Link to="/manage-orders">Manage Orders</Link>
+            </Menu.Item>
+          )}
+          
         </Menu>
 
         {/* Profile Dropdown */}

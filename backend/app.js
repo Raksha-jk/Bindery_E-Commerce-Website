@@ -7,6 +7,12 @@ const cors = require('cors');
 app.use(cors({ origin: "http://localhost:5173" }));
 const port = 3000;
 //Routes
+const ordersRoute = require("./routes/orders");
+app.use("/orders", ordersRoute);
+const addressRoutes = require("./routes/address");
+app.use("/addresses", addressRoutes);
+const checkoutRoutes = require("./routes/checkout");
+app.use("/checkout", checkoutRoutes);
 const bookRoutes = require("./routes/book");
 app.use("/book", bookRoutes);
 const authRoutes = require("./routes/auth");
@@ -29,7 +35,7 @@ sequelize.authenticate()
         console.error("❌ DB connection error:", err);
     });
 
-sequelize.sync()
+sequelize.sync({alter:true})
     .then(() => {
         console.log('Database is synchronized');
         app.listen(port, () => {

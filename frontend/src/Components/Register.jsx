@@ -60,7 +60,6 @@ export default function Register() {
           <Select>
             <Select.Option value="buyer">Buyer</Select.Option>
             <Select.Option value="seller">Seller</Select.Option>
-            <Select.Option value="admin">Admin</Select.Option>
           </Select>
         </Form.Item>
 

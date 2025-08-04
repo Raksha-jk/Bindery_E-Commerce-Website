@@ -7,19 +7,21 @@ import Register from "./Components/Register";
 import Cart from "./Pages/Cart";
 import Title from "./Pages/Title";
 import SellerDashboard from "./Pages/SellerDashboard";
+import MyOrders from "./Pages/MyOrders";
+import ManageOrders from "./Pages/ManageOrders";
+import Checkout from "./Pages/Checkout";
+import OrderConfirmation from "./Pages/OrderConfirmation";
 
 export default function App() {
   const location = useLocation();
   const hideNavbar = location.pathname === "/";
 
-  // General login check
   const ProtectedRoute = ({ children }) => {
     const token = localStorage.getItem("token");
     if (!token) return <Navigate to="/login" replace />;
     return children;
   };
 
-  // Seller/Admin only
   const SellerRoute = ({ children }) => {
     const role = localStorage.getItem("role");
     if (role === "seller" || role === "admin") {
@@ -39,42 +41,20 @@ export default function App() {
         <Route path="/register" element={<Register />} />
 
         {/* Buyer/Seller/Admin */}
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <ProtectedRoute>
-              <Cart />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/product/:id"
-          element={
-            <ProtectedRoute>
-              <ProductDetail />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+        <Route path="/product/:id" element={<ProtectedRoute><ProductDetail /></ProtectedRoute>} />
 
-        {/* Seller/Admin only */}
-        <Route
-          path="/seller"
-          element={
-            <ProtectedRoute>
-              <SellerRoute>
-                <SellerDashboard />
-              </SellerRoute>
-            </ProtectedRoute>
-          }
-        />
+        {/* Checkout + Confirmation */}
+        <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+        <Route path="/order-confirmation/:id" element={<ProtectedRoute><OrderConfirmation /></ProtectedRoute>} />
+
+        {/* My Orders */}
+        <Route path="/my-orders" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
+
+        {/* Seller/Admin */}
+        <Route path="/seller" element={<ProtectedRoute><SellerRoute><SellerDashboard /></SellerRoute></ProtectedRoute>} />
+        <Route path="/manage-orders" element={<ProtectedRoute><SellerRoute><ManageOrders /></SellerRoute></ProtectedRoute>} />
       </Routes>
     </>
   );

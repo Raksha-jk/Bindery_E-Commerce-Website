@@ -6,6 +6,14 @@ const CartItem = require("./cartItem_tb");
 const Order = require("./Orders_tb");
 const OrderItem = require("./orderItems_tb");
 const Review = require("./Reviews_tb");
+const Address = require("./Address_tb");
+
+// A user can have many addresses (optional: support multiple shipping addresses)
+User.hasMany(Address, { foreignKey: "user_id", onDelete: "CASCADE" });
+Address.belongsTo(User, { foreignKey: "user_id" });
+
+Order.belongsTo(Address, { foreignKey: "addressId" });
+Address.hasMany(Order, { foreignKey: "addressId" });
 
 User.hasMany(Review, { foreignKey: "user_id" });
 Review.belongsTo(User, { foreignKey: "user_id" });
@@ -35,5 +43,5 @@ Book.hasMany(OrderItem, { foreignKey: "book_id" });
 OrderItem.belongsTo(Book, { foreignKey: "book_id" });
 
 module.exports = {
-  sequelize, User, Book, Category, CartItem, Order, OrderItem, Review
+  sequelize,Address, User, Book, Category, CartItem, Order, OrderItem, Review
 };

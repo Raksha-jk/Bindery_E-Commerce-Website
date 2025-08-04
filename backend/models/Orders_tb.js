@@ -13,6 +13,10 @@ const orders = sequelize.define('Order', {
             key: 'id'
         }
     },
+    addressId: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     totalAmount: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false
